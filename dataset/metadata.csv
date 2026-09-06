@@ -1,0 +1,17 @@
+file,fault_type,load_hp,sampling_frequency_hz,rpm,signal_length
+97.mat,Normal,0,12000,1796.0,243938
+98.mat,Normal,1,12000,,483903
+99.mat,Normal,2,12000,,485063
+100.mat,Normal,3,12000,1725.0,485643
+105.mat,Inner Race,0,12000,1797.0,121265
+106.mat,Inner Race,1,12000,1772.0,121991
+107.mat,Inner Race,2,12000,1748.0,122136
+108.mat,Inner Race,3,12000,1721.0,122917
+118.mat,Ball,0,12000,1796.0,122571
+119.mat,Ball,1,12000,1772.0,121410
+120.mat,Ball,2,12000,1748.0,121556
+121.mat,Ball,3,12000,1722.0,121556
+130.mat,Outer Race,0,12000,1796.0,121991
+131.mat,Outer Race,1,12000,1773.0,122426
+132.mat,Outer Race,2,12000,1750.0,121410
+133.mat,Outer Race,3,12000,1725.0,122571
