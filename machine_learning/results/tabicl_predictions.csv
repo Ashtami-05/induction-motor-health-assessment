@@ -1,0 +1,412 @@
+file,segment,fault_type,predicted_fault
+100.mat,0,Normal,Normal
+100.mat,1,Normal,Normal
+100.mat,2,Normal,Normal
+100.mat,3,Normal,Normal
+100.mat,4,Normal,Normal
+100.mat,5,Normal,Normal
+100.mat,6,Normal,Normal
+100.mat,7,Normal,Normal
+100.mat,8,Normal,Normal
+100.mat,9,Normal,Normal
+100.mat,10,Normal,Normal
+100.mat,11,Normal,Normal
+100.mat,12,Normal,Normal
+100.mat,13,Normal,Normal
+100.mat,14,Normal,Normal
+100.mat,15,Normal,Normal
+100.mat,16,Normal,Normal
+100.mat,17,Normal,Normal
+100.mat,18,Normal,Normal
+100.mat,19,Normal,Normal
+100.mat,20,Normal,Normal
+100.mat,21,Normal,Normal
+100.mat,22,Normal,Normal
+100.mat,23,Normal,Normal
+100.mat,24,Normal,Normal
+100.mat,25,Normal,Normal
+100.mat,26,Normal,Normal
+100.mat,27,Normal,Normal
+100.mat,28,Normal,Normal
+100.mat,29,Normal,Normal
+100.mat,30,Normal,Normal
+100.mat,31,Normal,Normal
+100.mat,32,Normal,Normal
+100.mat,33,Normal,Normal
+100.mat,34,Normal,Normal
+100.mat,35,Normal,Normal
+100.mat,36,Normal,Normal
+100.mat,37,Normal,Normal
+100.mat,38,Normal,Normal
+100.mat,39,Normal,Normal
+100.mat,40,Normal,Normal
+100.mat,41,Normal,Normal
+100.mat,42,Normal,Normal
+100.mat,43,Normal,Normal
+100.mat,44,Normal,Normal
+100.mat,45,Normal,Normal
+100.mat,46,Normal,Normal
+100.mat,47,Normal,Normal
+100.mat,48,Normal,Normal
+100.mat,49,Normal,Normal
+100.mat,50,Normal,Normal
+100.mat,51,Normal,Normal
+100.mat,52,Normal,Normal
+100.mat,53,Normal,Normal
+100.mat,54,Normal,Normal
+100.mat,55,Normal,Normal
+100.mat,56,Normal,Normal
+100.mat,57,Normal,Normal
+100.mat,58,Normal,Normal
+100.mat,59,Normal,Normal
+100.mat,60,Normal,Normal
+100.mat,61,Normal,Normal
+100.mat,62,Normal,Normal
+100.mat,63,Normal,Normal
+100.mat,64,Normal,Normal
+100.mat,65,Normal,Normal
+100.mat,66,Normal,Normal
+100.mat,67,Normal,Normal
+100.mat,68,Normal,Normal
+100.mat,69,Normal,Normal
+100.mat,70,Normal,Normal
+100.mat,71,Normal,Normal
+100.mat,72,Normal,Normal
+100.mat,73,Normal,Normal
+100.mat,74,Normal,Normal
+100.mat,75,Normal,Normal
+100.mat,76,Normal,Normal
+100.mat,77,Normal,Normal
+100.mat,78,Normal,Normal
+100.mat,79,Normal,Normal
+100.mat,80,Normal,Normal
+100.mat,81,Normal,Normal
+100.mat,82,Normal,Normal
+100.mat,83,Normal,Normal
+100.mat,84,Normal,Normal
+100.mat,85,Normal,Normal
+100.mat,86,Normal,Normal
+100.mat,87,Normal,Normal
+100.mat,88,Normal,Normal
+100.mat,89,Normal,Normal
+100.mat,90,Normal,Normal
+100.mat,91,Normal,Normal
+100.mat,92,Normal,Normal
+100.mat,93,Normal,Normal
+100.mat,94,Normal,Normal
+100.mat,95,Normal,Normal
+100.mat,96,Normal,Normal
+100.mat,97,Normal,Normal
+100.mat,98,Normal,Normal
+100.mat,99,Normal,Normal
+100.mat,100,Normal,Normal
+100.mat,101,Normal,Normal
+100.mat,102,Normal,Normal
+100.mat,103,Normal,Normal
+100.mat,104,Normal,Normal
+100.mat,105,Normal,Normal
+100.mat,106,Normal,Normal
+100.mat,107,Normal,Normal
+100.mat,108,Normal,Normal
+100.mat,109,Normal,Normal
+100.mat,110,Normal,Normal
+100.mat,111,Normal,Normal
+100.mat,112,Normal,Normal
+100.mat,113,Normal,Normal
+100.mat,114,Normal,Normal
+100.mat,115,Normal,Normal
+100.mat,116,Normal,Normal
+100.mat,117,Normal,Normal
+100.mat,118,Normal,Normal
+100.mat,119,Normal,Normal
+100.mat,120,Normal,Normal
+100.mat,121,Normal,Normal
+100.mat,122,Normal,Normal
+100.mat,123,Normal,Normal
+100.mat,124,Normal,Normal
+100.mat,125,Normal,Normal
+100.mat,126,Normal,Normal
+100.mat,127,Normal,Normal
+100.mat,128,Normal,Normal
+100.mat,129,Normal,Normal
+100.mat,130,Normal,Normal
+100.mat,131,Normal,Normal
+100.mat,132,Normal,Normal
+100.mat,133,Normal,Normal
+100.mat,134,Normal,Normal
+100.mat,135,Normal,Normal
+100.mat,136,Normal,Normal
+100.mat,137,Normal,Normal
+100.mat,138,Normal,Normal
+100.mat,139,Normal,Normal
+100.mat,140,Normal,Normal
+100.mat,141,Normal,Normal
+100.mat,142,Normal,Normal
+100.mat,143,Normal,Normal
+100.mat,144,Normal,Normal
+100.mat,145,Normal,Normal
+100.mat,146,Normal,Normal
+100.mat,147,Normal,Normal
+100.mat,148,Normal,Normal
+100.mat,149,Normal,Normal
+100.mat,150,Normal,Normal
+100.mat,151,Normal,Normal
+100.mat,152,Normal,Normal
+100.mat,153,Normal,Normal
+100.mat,154,Normal,Normal
+100.mat,155,Normal,Normal
+100.mat,156,Normal,Normal
+100.mat,157,Normal,Normal
+100.mat,158,Normal,Normal
+100.mat,159,Normal,Normal
+100.mat,160,Normal,Normal
+100.mat,161,Normal,Normal
+100.mat,162,Normal,Normal
+100.mat,163,Normal,Normal
+100.mat,164,Normal,Normal
+100.mat,165,Normal,Normal
+100.mat,166,Normal,Normal
+100.mat,167,Normal,Normal
+100.mat,168,Normal,Normal
+100.mat,169,Normal,Normal
+100.mat,170,Normal,Normal
+100.mat,171,Normal,Normal
+100.mat,172,Normal,Normal
+100.mat,173,Normal,Normal
+100.mat,174,Normal,Normal
+100.mat,175,Normal,Normal
+100.mat,176,Normal,Normal
+100.mat,177,Normal,Normal
+100.mat,178,Normal,Normal
+100.mat,179,Normal,Normal
+100.mat,180,Normal,Normal
+100.mat,181,Normal,Normal
+100.mat,182,Normal,Normal
+100.mat,183,Normal,Normal
+100.mat,184,Normal,Normal
+100.mat,185,Normal,Normal
+100.mat,186,Normal,Normal
+100.mat,187,Normal,Normal
+100.mat,188,Normal,Normal
+100.mat,189,Normal,Normal
+100.mat,190,Normal,Normal
+100.mat,191,Normal,Normal
+100.mat,192,Normal,Normal
+100.mat,193,Normal,Normal
+100.mat,194,Normal,Normal
+100.mat,195,Normal,Normal
+100.mat,196,Normal,Normal
+100.mat,197,Normal,Normal
+100.mat,198,Normal,Normal
+100.mat,199,Normal,Normal
+100.mat,200,Normal,Normal
+100.mat,201,Normal,Normal
+100.mat,202,Normal,Normal
+100.mat,203,Normal,Normal
+100.mat,204,Normal,Normal
+100.mat,205,Normal,Normal
+100.mat,206,Normal,Normal
+100.mat,207,Normal,Normal
+100.mat,208,Normal,Normal
+100.mat,209,Normal,Normal
+100.mat,210,Normal,Normal
+100.mat,211,Normal,Normal
+100.mat,212,Normal,Normal
+100.mat,213,Normal,Normal
+100.mat,214,Normal,Normal
+100.mat,215,Normal,Normal
+100.mat,216,Normal,Normal
+100.mat,217,Normal,Normal
+100.mat,218,Normal,Normal
+100.mat,219,Normal,Normal
+100.mat,220,Normal,Normal
+100.mat,221,Normal,Normal
+100.mat,222,Normal,Normal
+100.mat,223,Normal,Normal
+100.mat,224,Normal,Normal
+100.mat,225,Normal,Normal
+100.mat,226,Normal,Normal
+100.mat,227,Normal,Normal
+100.mat,228,Normal,Normal
+100.mat,229,Normal,Normal
+100.mat,230,Normal,Normal
+100.mat,231,Normal,Normal
+100.mat,232,Normal,Normal
+100.mat,233,Normal,Normal
+100.mat,234,Normal,Normal
+100.mat,235,Normal,Normal
+108.mat,0,Inner Race,Inner Race
+108.mat,1,Inner Race,Inner Race
+108.mat,2,Inner Race,Inner Race
+108.mat,3,Inner Race,Inner Race
+108.mat,4,Inner Race,Inner Race
+108.mat,5,Inner Race,Inner Race
+108.mat,6,Inner Race,Inner Race
+108.mat,7,Inner Race,Inner Race
+108.mat,8,Inner Race,Inner Race
+108.mat,9,Inner Race,Inner Race
+108.mat,10,Inner Race,Inner Race
+108.mat,11,Inner Race,Inner Race
+108.mat,12,Inner Race,Inner Race
+108.mat,13,Inner Race,Inner Race
+108.mat,14,Inner Race,Inner Race
+108.mat,15,Inner Race,Inner Race
+108.mat,16,Inner Race,Inner Race
+108.mat,17,Inner Race,Inner Race
+108.mat,18,Inner Race,Inner Race
+108.mat,19,Inner Race,Inner Race
+108.mat,20,Inner Race,Inner Race
+108.mat,21,Inner Race,Inner Race
+108.mat,22,Inner Race,Inner Race
+108.mat,23,Inner Race,Inner Race
+108.mat,24,Inner Race,Inner Race
+108.mat,25,Inner Race,Inner Race
+108.mat,26,Inner Race,Inner Race
+108.mat,27,Inner Race,Inner Race
+108.mat,28,Inner Race,Inner Race
+108.mat,29,Inner Race,Inner Race
+108.mat,30,Inner Race,Inner Race
+108.mat,31,Inner Race,Inner Race
+108.mat,32,Inner Race,Inner Race
+108.mat,33,Inner Race,Inner Race
+108.mat,34,Inner Race,Inner Race
+108.mat,35,Inner Race,Inner Race
+108.mat,36,Inner Race,Inner Race
+108.mat,37,Inner Race,Inner Race
+108.mat,38,Inner Race,Inner Race
+108.mat,39,Inner Race,Inner Race
+108.mat,40,Inner Race,Inner Race
+108.mat,41,Inner Race,Inner Race
+108.mat,42,Inner Race,Inner Race
+108.mat,43,Inner Race,Inner Race
+108.mat,44,Inner Race,Inner Race
+108.mat,45,Inner Race,Inner Race
+108.mat,46,Inner Race,Inner Race
+108.mat,47,Inner Race,Inner Race
+108.mat,48,Inner Race,Inner Race
+108.mat,49,Inner Race,Inner Race
+108.mat,50,Inner Race,Inner Race
+108.mat,51,Inner Race,Inner Race
+108.mat,52,Inner Race,Inner Race
+108.mat,53,Inner Race,Inner Race
+108.mat,54,Inner Race,Inner Race
+108.mat,55,Inner Race,Inner Race
+108.mat,56,Inner Race,Inner Race
+108.mat,57,Inner Race,Inner Race
+108.mat,58,Inner Race,Inner Race
+121.mat,0,Ball,Ball
+121.mat,1,Ball,Ball
+121.mat,2,Ball,Ball
+121.mat,3,Ball,Ball
+121.mat,4,Ball,Ball
+121.mat,5,Ball,Ball
+121.mat,6,Ball,Ball
+121.mat,7,Ball,Ball
+121.mat,8,Ball,Ball
+121.mat,9,Ball,Ball
+121.mat,10,Ball,Ball
+121.mat,11,Ball,Ball
+121.mat,12,Ball,Ball
+121.mat,13,Ball,Ball
+121.mat,14,Ball,Ball
+121.mat,15,Ball,Ball
+121.mat,16,Ball,Ball
+121.mat,17,Ball,Ball
+121.mat,18,Ball,Ball
+121.mat,19,Ball,Ball
+121.mat,20,Ball,Ball
+121.mat,21,Ball,Ball
+121.mat,22,Ball,Ball
+121.mat,23,Ball,Ball
+121.mat,24,Ball,Ball
+121.mat,25,Ball,Ball
+121.mat,26,Ball,Ball
+121.mat,27,Ball,Ball
+121.mat,28,Ball,Ball
+121.mat,29,Ball,Ball
+121.mat,30,Ball,Ball
+121.mat,31,Ball,Ball
+121.mat,32,Ball,Ball
+121.mat,33,Ball,Ball
+121.mat,34,Ball,Ball
+121.mat,35,Ball,Ball
+121.mat,36,Ball,Ball
+121.mat,37,Ball,Ball
+121.mat,38,Ball,Ball
+121.mat,39,Ball,Ball
+121.mat,40,Ball,Ball
+121.mat,41,Ball,Ball
+121.mat,42,Ball,Ball
+121.mat,43,Ball,Ball
+121.mat,44,Ball,Ball
+121.mat,45,Ball,Ball
+121.mat,46,Ball,Ball
+121.mat,47,Ball,Ball
+121.mat,48,Ball,Ball
+121.mat,49,Ball,Ball
+121.mat,50,Ball,Ball
+121.mat,51,Ball,Ball
+121.mat,52,Ball,Ball
+121.mat,53,Ball,Ball
+121.mat,54,Ball,Ball
+121.mat,55,Ball,Ball
+121.mat,56,Ball,Ball
+121.mat,57,Ball,Ball
+133.mat,0,Outer Race,Outer Race
+133.mat,1,Outer Race,Outer Race
+133.mat,2,Outer Race,Outer Race
+133.mat,3,Outer Race,Outer Race
+133.mat,4,Outer Race,Outer Race
+133.mat,5,Outer Race,Outer Race
+133.mat,6,Outer Race,Outer Race
+133.mat,7,Outer Race,Outer Race
+133.mat,8,Outer Race,Outer Race
+133.mat,9,Outer Race,Outer Race
+133.mat,10,Outer Race,Outer Race
+133.mat,11,Outer Race,Outer Race
+133.mat,12,Outer Race,Outer Race
+133.mat,13,Outer Race,Outer Race
+133.mat,14,Outer Race,Outer Race
+133.mat,15,Outer Race,Outer Race
+133.mat,16,Outer Race,Outer Race
+133.mat,17,Outer Race,Outer Race
+133.mat,18,Outer Race,Outer Race
+133.mat,19,Outer Race,Outer Race
+133.mat,20,Outer Race,Outer Race
+133.mat,21,Outer Race,Outer Race
+133.mat,22,Outer Race,Outer Race
+133.mat,23,Outer Race,Outer Race
+133.mat,24,Outer Race,Outer Race
+133.mat,25,Outer Race,Outer Race
+133.mat,26,Outer Race,Outer Race
+133.mat,27,Outer Race,Outer Race
+133.mat,28,Outer Race,Outer Race
+133.mat,29,Outer Race,Outer Race
+133.mat,30,Outer Race,Outer Race
+133.mat,31,Outer Race,Outer Race
+133.mat,32,Outer Race,Outer Race
+133.mat,33,Outer Race,Outer Race
+133.mat,34,Outer Race,Outer Race
+133.mat,35,Outer Race,Outer Race
+133.mat,36,Outer Race,Outer Race
+133.mat,37,Outer Race,Outer Race
+133.mat,38,Outer Race,Outer Race
+133.mat,39,Outer Race,Outer Race
+133.mat,40,Outer Race,Outer Race
+133.mat,41,Outer Race,Outer Race
+133.mat,42,Outer Race,Outer Race
+133.mat,43,Outer Race,Outer Race
+133.mat,44,Outer Race,Outer Race
+133.mat,45,Outer Race,Outer Race
+133.mat,46,Outer Race,Outer Race
+133.mat,47,Outer Race,Outer Race
+133.mat,48,Outer Race,Outer Race
+133.mat,49,Outer Race,Outer Race
+133.mat,50,Outer Race,Outer Race
+133.mat,51,Outer Race,Outer Race
+133.mat,52,Outer Race,Outer Race
+133.mat,53,Outer Race,Outer Race
+133.mat,54,Outer Race,Outer Race
+133.mat,55,Outer Race,Outer Race
+133.mat,56,Outer Race,Outer Race
+133.mat,57,Outer Race,Outer Race

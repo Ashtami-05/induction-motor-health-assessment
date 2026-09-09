@@ -1,0 +1,15 @@
+feature,importance
+skewness,2381
+spectral_bandwidth,1605
+kurtosis,1562
+peak_to_peak,1386
+spectral_centroid,1333
+peak_amplitude,1205
+std,1183
+mean,1055
+mean_absolute,775
+crest_factor,769
+peak_frequency,558
+peak,512
+spectral_energy,384
+rms,198
