@@ -1,100 +1,186 @@
-import os
-import scipy.io
 import pandas as pd
 
-# ---------------------------------------------------------
-# CWRU Dataset Metadata Preparation
-# Project: Induction Motor Health Assessment
-# ---------------------------------------------------------
+# ==========================================
+# LOAD FEATURE DATASET
+# ==========================================
 
-# Location of raw CWRU .mat files
-RAW_DIR = os.path.join("..", "dataset", "raw")
+file_path = "dataset/complete_features.csv"
 
-# Sampling frequency
-FS = 12000
+df = pd.read_csv(file_path)
 
-# Selected CWRU recordings
-dataset_info = {
-    97:  ("Normal", 0),
-    98:  ("Normal", 1),
-    99:  ("Normal", 2),
-    100: ("Normal", 3),
-
-    105: ("Inner Race", 0),
-    106: ("Inner Race", 1),
-    107: ("Inner Race", 2),
-    108: ("Inner Race", 3),
-
-    118: ("Ball", 0),
-    119: ("Ball", 1),
-    120: ("Ball", 2),
-    121: ("Ball", 3),
-
-    130: ("Outer Race", 0),
-    131: ("Outer Race", 1),
-    132: ("Outer Race", 2),
-    133: ("Outer Race", 3),
-}
-
-records = []
-
-for file_number, (fault_type, load_hp) in dataset_info.items():
-
-    filename = f"{file_number}.mat"
-    filepath = os.path.join(RAW_DIR, filename)
-
-    if not os.path.exists(filepath):
-        print(f"WARNING: {filename} not found")
-        continue
-
-    try:
-        data = scipy.io.loadmat(filepath)
-
-        # Drive-End vibration variable
-        de_key = f"X{file_number:03d}_DE_time"
-
-        if de_key not in data:
-            print(f"WARNING: DE signal not found in {filename}")
-            continue
-
-        signal = data[de_key].flatten()
-
-        # RPM
-        rpm_key = f"X{file_number:03d}RPM"
-
-        if rpm_key in data:
-            rpm = float(data[rpm_key].flatten()[0])
-        else:
-            rpm = None
-
-        records.append({
-            "file": filename,
-            "fault_type": fault_type,
-            "load_hp": load_hp,
-            "sampling_frequency_hz": FS,
-            "rpm": rpm,
-            "signal_length": len(signal)
-        })
-
-        print(f"Processed {filename}")
-
-    except Exception as e:
-        print(f"ERROR processing {filename}: {e}")
+print("\n========== DATASET LOADED ==========\n")
+print("Total samples:", len(df))
+print("Total recordings:", df["file"].nunique())
 
 
-# Create metadata table
-metadata = pd.DataFrame(records)
+# ==========================================
+# FEATURES USED FOR MACHINE LEARNING
+# ==========================================
 
-# Save metadata
-OUTPUT_DIR = os.path.join("..", "dataset")
+features = [
+    "mean",
+    "std",
+    "rms",
+    "peak",
+    "peak_to_peak",
+    "mean_absolute",
+    "kurtosis",
+    "skewness",
+    "crest_factor",
+    "peak_frequency",
+    "peak_amplitude",
+    "spectral_energy",
+    "spectral_centroid",
+    "spectral_bandwidth"
+]
 
-output_file = os.path.join(OUTPUT_DIR, "metadata.csv")
+target = "fault_type"
 
-metadata.to_csv(output_file, index=False)
 
-print("\n-----------------------------------------")
-print("Dataset metadata preparation completed.")
-print("-----------------------------------------")
-print(f"Total recordings processed: {len(metadata)}")
-print(f"Metadata saved to: {output_file}")
-print("-----------------------------------------")
+# ==========================================
+# CHECK FEATURES
+# ==========================================
+
+print("\n========== FEATURES USED ==========\n")
+
+for feature in features:
+    print("-", feature)
+
+print("\nTotal features:", len(features))
+print("Target:", target)
+
+
+# ==========================================
+# CHECK MISSING VALUES
+# ==========================================
+
+print("\n========== MISSING VALUE CHECK ==========\n")
+
+print(df[features].isnull().sum())
+
+
+# ==========================================
+# RECORDING-LEVEL TRAIN / TEST SPLIT
+# ==========================================
+
+train_files = [
+    "97.mat",
+    "98.mat",
+    "99.mat",
+    "105.mat",
+    "106.mat",
+    "107.mat",
+    "118.mat",
+    "119.mat",
+    "120.mat",
+    "130.mat",
+    "131.mat",
+    "132.mat"
+]
+
+test_files = [
+    "100.mat",
+    "108.mat",
+    "121.mat",
+    "133.mat"
+]
+
+
+# ==========================================
+# CREATE TRAINING AND TESTING DATA
+# ==========================================
+
+train_df = df[df["file"].isin(train_files)].copy()
+test_df = df[df["file"].isin(test_files)].copy()
+
+X_train = train_df[features]
+y_train = train_df[target]
+
+X_test = test_df[features]
+y_test = test_df[target]
+
+
+# ==========================================
+# DISPLAY DATASET INFORMATION
+# ==========================================
+
+print("\n========== TRAINING DATA ==========\n")
+
+print("Training samples:", len(X_train))
+print("Training features:", X_train.shape[1])
+
+print("\nTraining classes:")
+print(y_train.value_counts())
+
+
+print("\n========== TESTING DATA ==========\n")
+
+print("Testing samples:", len(X_test))
+print("Testing features:", X_test.shape[1])
+
+print("\nTesting classes:")
+print(y_test.value_counts())
+
+
+# ==========================================
+# CHECK RECORDING OVERLAP
+# ==========================================
+
+overlap = set(train_files).intersection(set(test_files))
+
+print("\n========== DATA LEAKAGE CHECK ==========\n")
+
+if len(overlap) == 0:
+    print("SUCCESS: No recording appears in both training and testing data.")
+else:
+    print("WARNING: Recording overlap detected!")
+    print(overlap)
+
+
+# ==========================================
+# CHECK CLASS COVERAGE
+# ==========================================
+
+train_classes = set(y_train.unique())
+test_classes = set(y_test.unique())
+
+print("\n========== CLASS COVERAGE CHECK ==========\n")
+
+print("Training classes:", train_classes)
+print("Testing classes:", test_classes)
+
+if train_classes == test_classes:
+    print("SUCCESS: All four classes are present in both datasets.")
+else:
+    print("WARNING: Class mismatch detected.")
+
+
+# ==========================================
+# SAVE TRAINING AND TESTING DATA
+# ==========================================
+
+train_output = "machine_learning/train_data.csv"
+test_output = "machine_learning/test_data.csv"
+
+train_df.to_csv(train_output, index=False)
+test_df.to_csv(test_output, index=False)
+
+
+# ==========================================
+# FINAL SUMMARY
+# ==========================================
+
+print("\n========== FILES SAVED ==========\n")
+
+print("Training data:", train_output)
+print("Testing data:", test_output)
+
+print("\n========== FINAL SUMMARY ==========\n")
+
+print("Original samples:", len(df))
+print("Training samples:", len(train_df))
+print("Testing samples:", len(test_df))
+print("Number of ML features:", len(features))
+print("Number of fault classes:", len(train_classes))
+
+print("\n========== DATA PREPARATION COMPLETE ==========\n")

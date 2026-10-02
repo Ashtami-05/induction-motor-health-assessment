@@ -2,7 +2,6 @@ import os
 import pandas as pd
 
 from tabicl import TabICLClassifier
-
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -12,32 +11,27 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-# ============================================================
-# FILE PATHS
-# ============================================================
+# =========================================================
+# PROJECT
+# Adaptive Health Assessment and Decision Support System
+# for Induction Motors Using Vibration Signal Processing
+# and Machine Learning
+# =========================================================
 
-train_file = "machine_learning/train_data.csv"
-test_file = "machine_learning/test_data.csv"
+BASE_DIR = "machine_learning"
 
-os.makedirs("machine_learning/models", exist_ok=True)
-os.makedirs("machine_learning/results", exist_ok=True)
+TRAIN_FILE = os.path.join(BASE_DIR, "train_data.csv")
+TEST_FILE = os.path.join(BASE_DIR, "test_data.csv")
 
-# ============================================================
-# LOAD DATA
-# ============================================================
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+RESULTS_DIR = os.path.join(BASE_DIR, "results")
 
-train_df = pd.read_csv(train_file)
-test_df = pd.read_csv(test_file)
+MODEL_FILE = os.path.join(MODEL_DIR, "tabicl_model.pkl")
+METRICS_FILE = os.path.join(RESULTS_DIR, "tabicl_metrics.csv")
+CONFUSION_FILE = os.path.join(RESULTS_DIR, "tabicl_confusion_matrix.csv")
+PREDICTIONS_FILE = os.path.join(RESULTS_DIR, "tabicl_predictions.csv")
 
-print("\n========== DATA LOADED ==========\n")
-print("Training rows:", len(train_df))
-print("Testing rows:", len(test_df))
-
-# ============================================================
-# FEATURES
-# ============================================================
-
-features = [
+FEATURES = [
     "mean",
     "std",
     "rms",
@@ -54,40 +48,73 @@ features = [
     "spectral_bandwidth"
 ]
 
-target = "fault_type"
+TARGET = "fault_type"
 
-X_train = train_df[features]
-X_test = test_df[features]
+os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(RESULTS_DIR, exist_ok=True)
 
-y_train = train_df[target]
-y_test = test_df[target]
 
-print("\n========== ML DATA ==========\n")
-print("Number of features:", len(features))
-print("Training samples:", len(X_train))
-print("Testing samples:", len(X_test))
+# =========================================================
+# PROJECT TITLE
+# =========================================================
 
-print("\nFeatures used:")
-for feature in features:
+print("\n========================================================")
+print(" Adaptive Health Assessment and Decision Support System")
+print(" for Induction Motors Using Vibration Signal Processing")
+print(" and Machine Learning")
+print("========================================================")
+
+
+# =========================================================
+# INPUT DATA
+# =========================================================
+
+print("\n==================== INPUT DATA ====================\n")
+
+train_data = pd.read_csv(TRAIN_FILE)
+test_data = pd.read_csv(TEST_FILE)
+
+X_train = train_data[FEATURES]
+y_train = train_data[TARGET]
+
+X_test = test_data[FEATURES]
+y_test = test_data[TARGET]
+
+print("Training samples :", len(X_train))
+print("Testing samples  :", len(X_test))
+print("Input features   :", len(FEATURES))
+print("Target           :", TARGET)
+print("Fault classes    :", y_train.nunique())
+
+print("\nInput Features:")
+for feature in FEATURES:
     print("-", feature)
 
-# ============================================================
-# CHECK MISSING VALUES
-# ============================================================
 
-print("\n========== MISSING VALUE CHECK ==========\n")
+# =========================================================
+# DATA CHECK
+# =========================================================
 
-print("Training missing values:")
-print(X_train.isnull().sum())
+print("\n==================== DATA CHECK ====================\n")
 
-print("\nTesting missing values:")
-print(X_test.isnull().sum())
+training_missing = X_train.isnull().sum().sum()
+testing_missing = X_test.isnull().sum().sum()
 
-# ============================================================
-# CREATE TABICL MODEL
-# ============================================================
+print("Training missing values:", training_missing)
+print("Testing missing values :", testing_missing)
 
-print("\n========== TABICLv2 MODEL ==========\n")
+if training_missing == 0 and testing_missing == 0:
+    print("Status: No missing values found.")
+
+
+# =========================================================
+# MODEL
+# =========================================================
+
+print("\n==================== MODEL ====================\n")
+
+print("Model : TabICLv2")
+print("Task  : Multiclass Fault Classification")
 
 model = TabICLClassifier(
     n_estimators=8,
@@ -96,34 +123,35 @@ model = TabICLClassifier(
     verbose=True
 )
 
-print("TabICLv2 model created.")
+print("Model initialized.")
 
-# ============================================================
-# TRAIN / FIT MODEL
-# ============================================================
 
-print("\n========== TABICLv2 FITTING ==========\n")
+# =========================================================
+# TRAINING
+# =========================================================
 
-print("Starting TabICLv2...")
-print("The first run may download the pretrained checkpoint.")
+print("\n==================== TRAINING ====================\n")
 
+print("Training model...")
 model.fit(X_train, y_train)
 
-print("\nTabICLv2 fitting completed.")
+print("Training completed.")
 
-# ============================================================
+
+# =========================================================
 # PREDICTION
-# ============================================================
+# =========================================================
 
-print("\n========== PREDICTION ==========\n")
+print("\n==================== PREDICTION ====================\n")
 
 y_pred = model.predict(X_test)
 
 print("Prediction completed.")
 
-# ============================================================
-# PERFORMANCE METRICS
-# ============================================================
+
+# =========================================================
+# PERFORMANCE
+# =========================================================
 
 accuracy = accuracy_score(y_test, y_pred)
 
@@ -148,32 +176,34 @@ f1 = f1_score(
     zero_division=0
 )
 
-print("\n========== TABICLv2 PERFORMANCE ==========\n")
+print("\n==================== PERFORMANCE ====================\n")
 
-print(f"Accuracy  : {accuracy:.4f}")
-print(f"Precision : {precision:.4f}")
-print(f"Recall    : {recall:.4f}")
-print(f"F1-score  : {f1:.4f}")
+print(f"Accuracy  : {accuracy * 100:.2f}%")
+print(f"Precision : {precision * 100:.2f}%")
+print(f"Recall    : {recall * 100:.2f}%")
+print(f"F1-score  : {f1 * 100:.2f}%")
 
-# ============================================================
+
+# =========================================================
 # CLASSIFICATION REPORT
-# ============================================================
+# =========================================================
 
-print("\n========== CLASSIFICATION REPORT ==========\n")
+print("\n==================== CLASSIFICATION REPORT ====================\n")
 
-report = classification_report(
-    y_test,
-    y_pred,
-    zero_division=0
+print(
+    classification_report(
+        y_test,
+        y_pred,
+        zero_division=0
+    )
 )
 
-print(report)
 
-# ============================================================
+# =========================================================
 # CONFUSION MATRIX
-# ============================================================
+# =========================================================
 
-labels = [
+class_labels = [
     "Ball",
     "Inner Race",
     "Normal",
@@ -183,101 +213,77 @@ labels = [
 cm = confusion_matrix(
     y_test,
     y_pred,
-    labels=labels
+    labels=class_labels
 )
 
-print("\n========== CONFUSION MATRIX ==========\n")
+print("\n==================== CONFUSION MATRIX ====================\n")
+
+print("Classes:", class_labels)
+print()
 print(cm)
 
-confusion_matrix_df = pd.DataFrame(
-    cm,
-    index=labels,
-    columns=labels
-)
 
-confusion_matrix_file = (
-    "machine_learning/results/tabicl_confusion_matrix.csv"
-)
+# =========================================================
+# SAVE RESULTS
+# =========================================================
 
-confusion_matrix_df.to_csv(
-    confusion_matrix_file
-)
-
-# ============================================================
-# SAVE METRICS
-# ============================================================
-
-metrics = pd.DataFrame({
-    "Model": ["TabICLv2"],
-    "Accuracy": [accuracy],
-    "Precision": [precision],
-    "Recall": [recall],
-    "F1_Score": [f1]
+metrics_df = pd.DataFrame({
+    "Metric": [
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1-score"
+    ],
+    "Value": [
+        accuracy,
+        precision,
+        recall,
+        f1
+    ]
 })
 
-metrics_file = "machine_learning/results/tabicl_metrics.csv"
-
-metrics.to_csv(
-    metrics_file,
+metrics_df.to_csv(
+    METRICS_FILE,
     index=False
 )
 
-# ============================================================
-# SAVE PREDICTIONS
-# ============================================================
-
-prediction_df = test_df[
-    ["file", "segment", "fault_type"]
-].copy()
-
-prediction_df["predicted_fault"] = y_pred
-
-prediction_file = (
-    "machine_learning/results/tabicl_predictions.csv"
+cm_df = pd.DataFrame(
+    cm,
+    index=class_labels,
+    columns=class_labels
 )
 
-prediction_df.to_csv(
-    prediction_file,
+cm_df.to_csv(
+    CONFUSION_FILE
+)
+
+predictions_df = pd.DataFrame({
+    "Actual": y_test,
+    "Predicted": y_pred
+})
+
+predictions_df.to_csv(
+    PREDICTIONS_FILE,
     index=False
 )
 
-# ============================================================
-# SAVE MODEL
-# ============================================================
+model.save(MODEL_FILE)
 
-model_file = (
-    "machine_learning/models/tabicl_model.pkl"
-)
 
-print("\n========== SAVING MODEL ==========\n")
+# =========================================================
+# SUMMARY
+# =========================================================
 
-model.save(model_file)
+correct = (y_test == y_pred).sum()
+incorrect = len(y_test) - correct
 
-print("TabICLv2 model saved.")
+print("\n==================== SUMMARY ====================\n")
 
-# ============================================================
-# FINAL SUMMARY
-# ============================================================
+print("Model             : TabICLv2")
+print("Training samples  :", len(X_train))
+print("Testing samples   :", len(X_test))
+print("Features used     :", len(FEATURES))
+print("Correct predictions   :", correct)
+print("Incorrect predictions :", incorrect)
 
-print("\n========== FILES SAVED ==========\n")
-
-print("Model:")
-print(model_file)
-
-print("\nMetrics:")
-print(metrics_file)
-
-print("\nConfusion matrix:")
-print(confusion_matrix_file)
-
-print("\nPredictions:")
-print(prediction_file)
-
-print("\n========== FINAL TABICLv2 RESULTS ==========\n")
-
-print(f"Accuracy  : {accuracy * 100:.2f}%")
-print(f"Precision : {precision * 100:.2f}%")
-print(f"Recall    : {recall * 100:.2f}%")
-print(f"F1-score  : {f1 * 100:.2f}%")
-
-print("\n========== TABICLv2 COMPLETE ==========\n")
+print("\n==================== PROCESS COMPLETE ====================\n")

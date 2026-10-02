@@ -3,21 +3,24 @@ import pandas as pd
 from tabicl import TabICLClassifier
 
 
-# ============================================================
-# FILE PATHS
-# ============================================================
+# =========================================================
+# PROJECT
+# Adaptive Health Assessment and Decision Support System
+# for Induction Motors Using Vibration Signal Processing
+# and Machine Learning
+# =========================================================
 
-model_file = "machine_learning/models/tabicl_model.pkl"
-test_file = "machine_learning/test_data.csv"
+BASE_DIR = "machine_learning"
 
-output_file = "machine_learning/results/predictions.csv"
+TEST_FILE = os.path.join(BASE_DIR, "test_data.csv")
+MODEL_FILE = os.path.join(BASE_DIR, "models", "tabicl_model.pkl")
 
 
-# ============================================================
-# FEATURES
-# ============================================================
+# =========================================================
+# FEATURES USED BY THE MODEL
+# =========================================================
 
-features = [
+FEATURES = [
     "mean",
     "std",
     "rms",
@@ -35,136 +38,97 @@ features = [
 ]
 
 
-# ============================================================
-# LOAD MODEL
-# ============================================================
+# =========================================================
+# PROJECT TITLE
+# =========================================================
 
-print("\n========== LOADING TABICLv2 MODEL ==========\n")
-
-model = TabICLClassifier.load(model_file)
-
-print("TabICLv2 model loaded successfully.")
-
-
-# ============================================================
-# LOAD TEST DATA
-# ============================================================
-
-print("\n========== LOADING INPUT DATA ==========\n")
-
-df = pd.read_csv(test_file)
-
-X = df[features]
-
-print("Input samples:", len(X))
-print("Number of features:", len(features))
+print("\n========================================================")
+print(" Adaptive Health Assessment and Decision Support System")
+print(" for Induction Motors Using Vibration Signal Processing")
+print(" and Machine Learning")
+print("========================================================")
 
 
-# ============================================================
-# PREDICT FAULT
-# ============================================================
+# =========================================================
+# INPUT DATA
+# =========================================================
 
-print("\n========== FAULT PREDICTION ==========\n")
+print("\n==================== INPUT DATA ====================\n")
 
-predicted_fault = model.predict(X)
+test_data = pd.read_csv(TEST_FILE)
 
-print("Fault prediction completed.")
+X_test = test_data[FEATURES]
+y_test = test_data["fault_type"]
 
-
-# ============================================================
-# PREDICTION PROBABILITY
-# ============================================================
-
-print("\n========== PREDICTION PROBABILITY ==========\n")
-
-probabilities = model.predict_proba(X)
-
-confidence = probabilities.max(axis=1)
-
-print("Prediction confidence calculated.")
+print("Testing samples :", len(X_test))
+print("Features used   :", len(FEATURES))
+print("Target          : fault_type")
 
 
-# ============================================================
-# CREATE OUTPUT
-# ============================================================
+# =========================================================
+# MODEL
+# =========================================================
 
-results = df[
-    [
-        "file",
-        "segment",
-        "fault_type"
-    ]
-].copy()
+print("\n==================== MODEL ====================\n")
 
-results["predicted_fault"] = predicted_fault
-results["confidence"] = confidence
+print("Model : TabICLv2")
+print("Task  : Multiclass Fault Classification")
+
+model = TabICLClassifier.load(MODEL_FILE)
+
+print("Trained model loaded.")
 
 
-# ============================================================
-# CHECK PREDICTIONS
-# ============================================================
+# =========================================================
+# PREDICTION
+# =========================================================
 
-correct_predictions = (
-    results["fault_type"] ==
-    results["predicted_fault"]
-).sum()
+print("\n==================== PREDICTION ====================\n")
 
-total_predictions = len(results)
+predictions = model.predict(X_test)
 
-accuracy = (
-    correct_predictions /
-    total_predictions
-) * 100
+print("Prediction completed.")
 
 
-print("\n========== PREDICTION SUMMARY ==========\n")
+# =========================================================
+# PERFORMANCE CALCULATION
+# =========================================================
 
-print("Total predictions:", total_predictions)
-print("Correct predictions:", correct_predictions)
-print("Incorrect predictions:", total_predictions - correct_predictions)
-print(f"Prediction accuracy: {accuracy:.2f}%")
+correct = (predictions == y_test).sum()
+incorrect = len(y_test) - correct
 
-
-# ============================================================
-# DISPLAY FIRST 20 PREDICTIONS
-# ============================================================
-
-print("\n========== FIRST 20 PREDICTIONS ==========\n")
-
-print(
-    results[
-        [
-            "file",
-            "segment",
-            "fault_type",
-            "predicted_fault",
-            "confidence"
-        ]
-    ].head(20)
-)
+accuracy = correct / len(y_test) * 100
 
 
-# ============================================================
-# SAVE RESULTS
-# ============================================================
+# =========================================================
+# RESULTS
+# =========================================================
 
-os.makedirs(
-    "machine_learning/results",
-    exist_ok=True
-)
+print("\n==================== RESULTS ====================\n")
 
-results.to_csv(
-    output_file,
-    index=False
-)
+print("Total test samples   :", len(y_test))
+print("Correct predictions  :", correct)
+print("Incorrect predictions:", incorrect)
+
+print(f"\nAccuracy : {accuracy:.2f}%")
 
 
-# ============================================================
-# FINAL OUTPUT
-# ============================================================
+# =========================================================
+# SAMPLE PREDICTIONS
+# =========================================================
 
-print("\n========== FILE SAVED ==========\n")
+print("\n==================== SAMPLE PREDICTIONS ====================\n")
 
-print(output_file)
+for i in range(min(10, len(y_test))):
+    print(
+        f"Sample {i + 1}: "
+        f"Actual = {y_test.iloc[i]} | "
+        f"Predicted = {predictions[i]}"
+    )
 
-print("\n========== PREDICTION MODULE COMPLETE ==========\n")
+
+# =========================================================
+# COMPLETE
+# =========================================================
+
+print("\n==================== PROCESS COMPLETE ====================\n")

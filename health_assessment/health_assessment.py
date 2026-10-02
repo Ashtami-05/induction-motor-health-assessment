@@ -1,33 +1,48 @@
+import os
 import pandas as pd
 from tabicl import TabICLClassifier
 
 
-# ============================================================
-# FILE PATHS
-# ============================================================
+# =========================================================
+# PROJECT
+# Adaptive Health Assessment and Decision Support System
+# for Induction Motors Using Vibration Signal Processing
+# and Machine Learning
+# =========================================================
 
-model_file = "machine_learning/models/tabicl_model.pkl"
-test_file = "machine_learning/test_data.csv"
+BASE_DIR = "machine_learning"
 
-
-# ============================================================
-# LOAD TABICLv2 MODEL
-# ============================================================
-
-print("\n========== LOADING MODEL ==========\n")
-
-model = TabICLClassifier.load(model_file)
-test_df = pd.read_csv(test_file)
-
-print("TabICLv2 model loaded successfully.")
-print("Test samples:", len(test_df))
+TEST_FILE = os.path.join(BASE_DIR, "test_data.csv")
+MODEL_FILE = os.path.join(BASE_DIR, "models", "tabicl_model.pkl")
 
 
-# ============================================================
-# FEATURES
-# ============================================================
+# =========================================================
+# PROJECT TITLE
+# =========================================================
 
-features = [
+print("\n========================================================")
+print(" Adaptive Health Assessment and Decision Support System")
+print(" for Induction Motors Using Vibration Signal Processing")
+print(" and Machine Learning")
+print("========================================================")
+
+
+# =========================================================
+# INPUT DATA
+# =========================================================
+
+print("\n==================== INPUT DATA ====================\n")
+
+test_data = pd.read_csv(TEST_FILE)
+
+print("Test samples :", len(test_data))
+
+
+# =========================================================
+# FEATURES USED BY TABICLv2
+# =========================================================
+
+FEATURES = [
     "mean",
     "std",
     "rms",
@@ -44,238 +59,201 @@ features = [
     "spectral_bandwidth"
 ]
 
+X_test = test_data[FEATURES]
 
-# ============================================================
-# PREPARE INPUT DATA
-# ============================================================
-
-X_test = test_df[features]
-
-print("\n========== INPUT DATA ==========\n")
-print("Number of samples:", len(X_test))
-print("Number of features:", len(features))
+print("Features used:", len(FEATURES))
 
 
-# ============================================================
+# =========================================================
+# MODEL
+# =========================================================
+
+print("\n==================== MODEL ====================\n")
+
+print("Model : TabICLv2")
+print("Task  : Multiclass Fault Classification")
+
+model = TabICLClassifier.load(MODEL_FILE)
+
+print("Trained model loaded.")
+
+
+# =========================================================
 # FAULT PREDICTION
-# ============================================================
+# =========================================================
 
-print("\n========== FAULT PREDICTION ==========\n")
+print("\n==================== FAULT PREDICTION ====================\n")
 
-predicted_fault = model.predict(X_test)
+predictions = model.predict(X_test)
 
 print("Fault prediction completed.")
 
 
-# ============================================================
+# =========================================================
 # PREDICTION CONFIDENCE
-# ============================================================
-
-print("\n========== PREDICTION CONFIDENCE ==========\n")
+# =========================================================
 
 probabilities = model.predict_proba(X_test)
 
 confidence = probabilities.max(axis=1)
 
-print("Confidence calculation completed.")
+print("Prediction confidence calculated.")
 
 
-# ============================================================
-# HEALTH SCORE
-# ============================================================
+# =========================================================
+# HEALTH ASSESSMENT
+# =========================================================
+#
+# This is a project-specific decision-support assessment.
+#
+# It does NOT represent a physical motor health percentage.
+#
+# The model identifies the predicted fault condition.
+# The system then assigns a risk level and maintenance action.
+# Confidence is displayed separately.
+# =========================================================
 
-def calculate_health_score(fault, confidence):
+def determine_health_status(fault):
 
     if fault == "Normal":
-
-        score = 90 + (confidence * 10)
+        return "Healthy"
 
     elif fault == "Ball":
-
-        score = 60 + (confidence * 20)
+        return "Fault Detected"
 
     elif fault == "Inner Race":
-
-        score = 30 + (1 - confidence) * 30
+        return "Fault Detected"
 
     elif fault == "Outer Race":
-
-        score = 30 + (1 - confidence) * 30
+        return "Fault Detected"
 
     else:
-
-        score = 50
-
-    return round(min(max(score, 0), 100), 2)
+        return "Requires Inspection"
 
 
-# ============================================================
+# =========================================================
 # RISK LEVEL
-# ============================================================
+# =========================================================
 
-def determine_risk(score):
+def determine_risk(fault):
 
-    if score >= 80:
-
+    if fault == "Normal":
         return "Low"
 
-    elif score >= 60:
+    elif fault == "Ball":
+        return "High"
 
-        return "Medium"
+    elif fault == "Inner Race":
+        return "High"
 
-    elif score >= 30:
-
+    elif fault == "Outer Race":
         return "High"
 
     else:
+        return "Medium"
 
-        return "Critical"
 
-
-# ============================================================
+# =========================================================
 # MAINTENANCE RECOMMENDATION
-# ============================================================
+# =========================================================
 
 def maintenance_recommendation(fault):
 
     if fault == "Normal":
-
         return "Continue normal operation and periodic monitoring."
 
     elif fault == "Ball":
-
-        return "Inspect bearing condition and schedule maintenance."
+        return "Inspect bearing and schedule maintenance."
 
     elif fault == "Inner Race":
-
-        return "Inspect inner race bearing condition and schedule maintenance."
+        return "Inspect inner race and schedule maintenance."
 
     elif fault == "Outer Race":
-
-        return "Inspect outer race bearing condition and schedule maintenance."
+        return "Inspect outer race and schedule maintenance."
 
     else:
-
         return "Perform detailed motor inspection."
 
 
-# ============================================================
-# GENERATE HEALTH ASSESSMENT
-# ============================================================
+# =========================================================
+# CREATE ASSESSMENT RESULTS
+# =========================================================
 
-health_scores = []
-risk_levels = []
-recommendations = []
+results = []
 
-for fault, conf in zip(predicted_fault, confidence):
+for i in range(len(predictions)):
 
-    score = calculate_health_score(
-        fault,
-        conf
-    )
+    fault = predictions[i]
+    conf = confidence[i]
 
-    risk = determine_risk(
-        score
-    )
+    health_status = determine_health_status(fault)
+    risk = determine_risk(fault)
+    recommendation = maintenance_recommendation(fault)
 
-    recommendation = maintenance_recommendation(
-        fault
-    )
-
-    health_scores.append(score)
-    risk_levels.append(risk)
-    recommendations.append(recommendation)
+    results.append({
+        "sample": i + 1,
+        "predicted_fault": fault,
+        "confidence": round(conf * 100, 2),
+        "health_status": health_status,
+        "risk_level": risk,
+        "maintenance_recommendation": recommendation
+    })
 
 
-# ============================================================
-# CREATE RESULT TABLE
-# ============================================================
-
-results = test_df[
-    [
-        "file",
-        "segment",
-        "fault_type"
-    ]
-].copy()
-
-results["predicted_fault"] = predicted_fault
-
-results["confidence"] = confidence
-
-results["health_score"] = health_scores
-
-results["risk_level"] = risk_levels
-
-results["maintenance_recommendation"] = recommendations
+results_df = pd.DataFrame(results)
 
 
-# ============================================================
+# =========================================================
 # DISPLAY RESULTS
-# ============================================================
+# =========================================================
 
-print("\n========== HEALTH ASSESSMENT RESULTS ==========\n")
+print("\n==================== HEALTH ASSESSMENT ====================\n")
 
 print(
-    results[
-        [
-            "file",
-            "segment",
-            "fault_type",
-            "predicted_fault",
-            "confidence",
-            "health_score",
-            "risk_level"
-        ]
-    ].head(20)
+    results_df.head(10).to_string(index=False)
 )
 
 
-# ============================================================
-# RISK DISTRIBUTION
-# ============================================================
+# =========================================================
+# SUMMARY
+# =========================================================
 
-print("\n========== RISK DISTRIBUTION ==========\n")
+print("\n==================== ASSESSMENT SUMMARY ====================\n")
+
+print("Health Status Distribution:")
 
 print(
-    results["risk_level"].value_counts()
+    results_df["health_status"].value_counts()
+)
+
+print("\nRisk Level Distribution:")
+
+print(
+    results_df["risk_level"].value_counts()
 )
 
 
-# ============================================================
-# AVERAGE HEALTH SCORE
-# ============================================================
-
-print("\n========== AVERAGE HEALTH SCORE ==========\n")
-
-average_score = results["health_score"].mean()
-
-print(
-    "Average Health Score:",
-    round(average_score, 2)
-)
-
-
-# ============================================================
+# =========================================================
 # SAVE RESULTS
-# ============================================================
+# =========================================================
 
-output_file = (
-    "health_assessment/health_assessment_results.csv"
+output_directory = "health_assessment"
+
+os.makedirs(output_directory, exist_ok=True)
+
+output_file = os.path.join(
+    output_directory,
+    "health_assessment_results.csv"
 )
 
-results.to_csv(
+results_df.to_csv(
     output_file,
     index=False
 )
 
 
-# ============================================================
-# FINAL OUTPUT
-# ============================================================
+# =========================================================
+# COMPLETE
+# =========================================================
 
-print("\n========== FILE SAVED ==========\n")
-
-print(output_file)
-
-print("\n========== HEALTH ASSESSMENT COMPLETE ==========\n")
+print("\n==================== PROCESS COMPLETE ====================\n")
